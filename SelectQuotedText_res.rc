@@ -1,0 +1,77 @@
+/////////////////////////////////////////////////////////////////////////////
+//                                                                         //
+//  SelectQuotedText                                                       //
+//  Copyright (c) 2016 Frank Fesevur                                       //
+//                                                                         //
+//  This program is free software; you can redistribute it and/or modify   //
+//  it under the terms of the GNU General Public License as published by   //
+//  the Free Software Foundation; either version 2 of the License, or      //
+//  (at your option) any later version.                                    //
+//                                                                         //
+//  This program is distributed in the hope that it will be useful,        //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of         //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the           //
+//  GNU General Public License for more details.                           //
+//                                                                         //
+//  You should have received a copy of the GNU General Public License      //
+//  along with this program; if not, write to the Free Software            //
+//  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.              //
+//                                                                         //
+/////////////////////////////////////////////////////////////////////////////
+
+#include <windows.h>
+#include <commctrl.h>
+#include "Resource.h"
+#include "Version.h"
+
+/////////////////////////////////////////////////////////////////////////////
+// Version Information
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION	VERSION_NUMBER
+PRODUCTVERSION	VERSION_NUMBER
+FILEFLAGSMASK	0x3fL
+FILEFLAGS 0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
+{
+	BLOCK	"VarFileInfo"
+	{
+		VALUE	"Translation",	0x409,	1200
+	}
+	BLOCK	"StringFileInfo"
+	{
+		BLOCK "040904b0"
+		{
+			VALUE	"CompanyName",			"Frank Fesevur"
+			VALUE	"FileDescription",		"SelectQuotedText plug-in for Notepad++"
+			VALUE	"FileVersion",			VERSION_NUMBER_STR
+			VALUE	"InternalName",			"SelectQuotedText.dll"
+			VALUE	"LegalCopyright",		COPYRIGHT_STR
+			VALUE	"OriginalFilename",		"SelectQuotedText.dll"
+			VALUE	"ProductName",			"SelectQuotedText"
+			VALUE	"ProductVersion",		VERSION_NUMBER_STR
+		}
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// Dialogs
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 224, 187
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+{
+	GROUPBOX		"SelectQuotedText plug-in",IDC_STATIC,10,9,201,154,BS_CENTER
+	LTEXT			"Author:",IDC_STATIC,30,23,35,8
+	LTEXT			"Frank Fesevur",IDC_STATIC,75,23,74,8
+	LTEXT			"Version:",IDC_STATIC,30,38,31,8
+	LTEXT			VERSION_NUMBER_STR,IDC_STATIC,75,38,19,8
+	LTEXT			"License:",IDC_STATIC,30,53,43,8
+	LTEXT			"GPL-2",IDC_STATIC,75,53,43,8
+	LTEXT			"Site:",IDC_STATIC,30,68,27,8
+	CONTROL			"<a href=""http://www.fesevur.com/selectquotedtext/"">http://www.fesevur.com/selectquotedtext/</a>",IDC_SYSLINK,"SysLink",NOT WS_TABSTOP,75,68,130,8
+	EDITTEXT		IDC_CHANGELOG,29,83,175,76,ES_MULTILINE | ES_AUTOVSCROLL | NOT ES_AUTOHSCROLL | ES_READONLY | ES_WANTRETURN | WS_VSCROLL | NOT WS_TABSTOP
+	PUSHBUTTON		"Close",IDCANCEL,86,167,50,14
+}
