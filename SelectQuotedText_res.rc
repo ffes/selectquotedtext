@@ -22,7 +22,7 @@
 #include <windows.h>
 #include <commctrl.h>
 #include "Resource.h"
-#include "Version.h"
+#include "version_git.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // Version Information
@@ -46,7 +46,7 @@ FILESUBTYPE VFT2_UNKNOWN
 		{
 			VALUE	"CompanyName",			"Frank Fesevur"
 			VALUE	"FileDescription",		"SelectQuotedText plug-in for Notepad++"
-			VALUE	"FileVersion",			VERSION_NUMBER_STR
+			VALUE	"FileVersion",			VERSION_GIT_STR
 			VALUE	"InternalName",			"SelectQuotedText.dll"
 			VALUE	"LegalCopyright",		COPYRIGHT_STR
 			VALUE	"OriginalFilename",		"SelectQuotedText.dll"
@@ -59,19 +59,18 @@ FILESUBTYPE VFT2_UNKNOWN
 /////////////////////////////////////////////////////////////////////////////
 // Dialogs
 
-IDD_ABOUTBOX DIALOGEX 0, 0, 224, 187
+IDD_ABOUTBOX DIALOGEX 0, 0, 224, 116
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_BORDER | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 {
-	GROUPBOX		"SelectQuotedText plug-in",IDC_STATIC,10,9,201,154,BS_CENTER
+	GROUPBOX		"SelectQuotedText plug-in",IDC_STATIC,10,9,201,80,BS_CENTER
 	LTEXT			"Author:",IDC_STATIC,30,23,35,8
 	LTEXT			"Frank Fesevur",IDC_STATIC,75,23,74,8
 	LTEXT			"Version:",IDC_STATIC,30,38,31,8
-	LTEXT			VERSION_NUMBER_STR,IDC_STATIC,75,38,19,8
+	LTEXT			VERSION_GIT_STR,IDC_STATIC,75,38,75,8
 	LTEXT			"License:",IDC_STATIC,30,53,43,8
 	LTEXT			"GPL-2",IDC_STATIC,75,53,43,8
 	LTEXT			"Site:",IDC_STATIC,30,68,27,8
-	CONTROL			"<a href=""http://www.fesevur.com/selectquotedtext/"">http://www.fesevur.com/selectquotedtext/</a>",IDC_SYSLINK,"SysLink",NOT WS_TABSTOP,75,68,130,8
-	EDITTEXT		IDC_CHANGELOG,29,83,175,76,ES_MULTILINE | ES_AUTOVSCROLL | NOT ES_AUTOHSCROLL | ES_READONLY | ES_WANTRETURN | WS_VSCROLL | NOT WS_TABSTOP
-	PUSHBUTTON		"Close",IDCANCEL,86,167,50,14
+	CONTROL			"<a href=""https://www.fesevur.com/selectquotedtext/"">https://www.fesevur.com/selectquotedtext/</a>",IDC_SYSLINK,"SysLink",NOT WS_TABSTOP,75,68,130,8
+	PUSHBUTTON		"Close",IDCANCEL,86,96,50,14
 }

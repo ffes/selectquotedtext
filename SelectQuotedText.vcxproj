@@ -190,13 +190,11 @@
   <ItemGroup>
     <ClCompile Include="DlgAbout.cpp" />
     <ClCompile Include="SelectQuotedText.cpp" />
-    <ClCompile Include="Version.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DlgAbout.h" />
     <ClInclude Include="SelectQuotedText.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Version.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SelectQuotedText_res.rc" />

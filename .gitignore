@@ -1,8 +1,5 @@
-_*
-*.suo
-*.ncb
-*.user
-*.VC.db
-*.opendb
+.vs/
 Win32/
 x64/
+*.user
+version_git.h

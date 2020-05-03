@@ -26,8 +26,3 @@ You can adjust the hotkey in `Settings`, `Shortcut Mapper`, `Plugin commands`.
 
 *  In HTML a URL in quotes is recognized as URL (it is underlined and clickable)
    by the lexer and therefore the plug-in will just select the current word.
-
-
-## Version 1.0.0 (2016-12-05) ##
-
-*  Initial release
