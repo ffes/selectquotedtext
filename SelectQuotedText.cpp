@@ -584,7 +584,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD reasonForCall, LPVOID lpReserved)
 			// Handle Select Quoted Text
 			int index = 0;
 			s_funcItem[index]._pFunc = SelectQuotedText;
-			wcscpy(s_funcItem[index]._itemName, L"Select quoted text");
+			wcscpy_s(s_funcItem[index]._itemName, L"Select quoted text");
 			s_funcItem[index]._init2Check = false;
 			s_funcItem[index]._pShKey = new ShortcutKey;
 			s_funcItem[index]._pShKey->_isAlt = true;
@@ -595,14 +595,14 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD reasonForCall, LPVOID lpReserved)
 
 			// Separator
 			s_funcItem[index]._pFunc = NULL;
-			wcscpy(s_funcItem[index]._itemName, L"-SEPARATOR-");
+			wcscpy_s(s_funcItem[index]._itemName, L"-SEPARATOR-");
 			s_funcItem[index]._init2Check = false;
 			s_funcItem[index]._pShKey = NULL;
 			index++;
 
 			// Show About Dialog
 			s_funcItem[index]._pFunc = ShowAboutDlg;
-			wcscpy(s_funcItem[index]._itemName, L"About...");
+			wcscpy_s(s_funcItem[index]._itemName, L"About...");
 			s_funcItem[index]._init2Check = false;
 			s_funcItem[index]._pShKey = NULL;
 			index++;

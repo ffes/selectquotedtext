@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
-Project("{0988343D-2B7A-4034-8EA5-EEABA6445B97}") = "SelectQuotedText", "SelectQuotedText_vs2015.vcxproj", "{31515DED-7E43-4F2B-8321-3A9BDEFD6CE6}"
+Project("{0988343D-2B7A-4034-8EA5-EEABA6445B97}") = "SelectQuotedText", "SelectQuotedText.vcxproj", "{31515DED-7E43-4F2B-8321-3A9BDEFD6CE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
