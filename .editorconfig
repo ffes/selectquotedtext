@@ -9,3 +9,8 @@ insert_final_newline = true
 
 [*.sh]
 end_of_line = lf
+
+[*.yml]
+indent_style = space
+end_of_line = lf
+indent_size = 2
