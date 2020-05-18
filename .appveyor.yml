@@ -14,37 +14,38 @@ configuration:
   - Debug
 
 install:
-  - if "%platform%"=="Win32" call "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars32.bat"
-  - if "%platform%"=="x64" call "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat"
+    - if "%platform%"=="x64" set archi=amd64
+    - if "%platform%"=="x64" set platform_input=x64
 
-build:
-  parallel: true                  # enable MSBuild parallel builds
-  verbosity: detailed
+    - if "%platform%"=="Win32" set archi=x86
+    - if "%platform%"=="Win32" set platform_input=Win32
+
+    - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" %archi%
 
 build_script:
   - cd "%APPVEYOR_BUILD_FOLDER%"
-  - msbuild SelectQuotedText.sln /m /p:configuration="%configuration%" /p:platform="%platform%" /p:PlatformToolset="%PlatformToolset%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+  - msbuild SelectQuotedText.sln /m /p:configuration="%configuration%" /p:platform="%platform_input%" /p:PlatformToolset="%PlatformToolset%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 after_build:
   - cd "%APPVEYOR_BUILD_FOLDER%"
   - ps: >-
 
-      if ($env:PLATFORM -eq "x64") {
-        Push-AppveyorArtifact "$env:PLATFORM\$env:CONFIGURATION\SelectQuotedText.dll" -FileName SelectQuotedText.dll
+      if ($env:PLATFORM_INPUT -eq "x64") {
+        Push-AppveyorArtifact "$env:PLATFORM_INPUT\$env:CONFIGURATION\SelectQuotedText.dll" -FileName SelectQuotedText.dll
       }
 
-      if ($env:PLATFORM -eq "Win32" ) {
-        Push-AppveyorArtifact "$env:PLATFORM\$env:CONFIGURATION\SelectQuotedText.dll" -FileName SelectQuotedText.dll
+      if ($env:PLATFORM_INPUT -eq "Win32" ) {
+        Push-AppveyorArtifact "$env:PLATFORM_INPUT\$env:CONFIGURATION\SelectQuotedText.dll" -FileName SelectQuotedText.dll
       }
 
       if ($($env:APPVEYOR_REPO_TAG) -eq "true" -and $env:CONFIGURATION -eq "Release" -and $env:PLATFORMTOOLSET -eq "v142") {
-        if($env:PLATFORM -eq "x64") {
+        if($env:PLATFORM_INPUT -eq "x64") {
           $ZipFileName = "SelectQuotedText_$($env:APPVEYOR_REPO_TAG_NAME)_x64.zip"
-          7z a $ZipFileName $env:PLATFORM\$env:CONFIGURATION\SelectQuotedText.dll
+          7z a $ZipFileName $env:PLATFORM_INPUT\$env:CONFIGURATION\SelectQuotedText.dll
         }
-        if($env:PLATFORM -eq "Win32") {
+        if($env:PLATFORM_INPUT -eq "Win32") {
           $ZipFileName = "SelectQuotedText_$($env:APPVEYOR_REPO_TAG_NAME)_x86.zip"
-          7z a $ZipFileName $env:PLATFORM\$env:CONFIGURATION\SelectQuotedText.dll
+          7z a $ZipFileName $env:PLATFORM_INPUT\$env:CONFIGURATION\SelectQuotedText.dll
         }
       }
 
