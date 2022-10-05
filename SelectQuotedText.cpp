@@ -28,11 +28,11 @@
 #include "SelectQuotedText.h"
 #include "DlgAbout.h"
 
-static const int nbFunc = 3;
+static constexpr int nbFunc = 3;
 static const TCHAR PLUGIN_NAME[] = L"SelectQuotedText";
 
 HINSTANCE g_hInst;
-NppData g_nppData;
+NppMessenger g_Msgr;
 static FuncItem s_funcItem[nbFunc];
 
 /////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ static FuncItem s_funcItem[nbFunc];
 // there is just a "return false" no useful SCE defines were found for that
 // languages.
 
-static bool CheckInString(int lexer, int style)
+static bool CheckInString(int lexer, int style) noexcept
 {
 	switch (lexer)
 	{
@@ -430,31 +430,31 @@ static bool CheckInString(int lexer, int style)
 /////////////////////////////////////////////////////////////////////////////
 //
 
-static void SelectQuotedText()
+static void SelectQuotedText() noexcept
 {
 	// Get current position
-	int pos = SendMsg(SCI_GETCURRENTPOS);
+	const int pos = g_Msgr.GetCurrentPos();
 
 	// Get style of that position
-	int lexer = SendMsg(SCI_GETLEXER);
-	int style = SendMsg(SCI_GETSTYLEAT, pos);
+	const int lexer = g_Msgr.SendSciMsg(SCI_GETLEXER);
+	const int style = g_Msgr.SendSciMsg(SCI_GETSTYLEAT, pos);
 
 	// Are we within a string?
 	int start = pos, end = pos;
 	if (CheckInString(lexer, style))
 	{
 		// As long as we are within the same style we need to move on
-		while (SendMsg(SCI_GETSTYLEAT, start - 1) == style)
+		while (g_Msgr.SendSciMsg(SCI_GETSTYLEAT, start - 1) == style)
 			start--;
 		start++;
-		while (SendMsg(SCI_GETSTYLEAT, end + 1) == style)
+		while (g_Msgr.SendSciMsg(SCI_GETSTYLEAT, end + 1) == style)
 			end++;
 	}
 	else
 	{
 		// Just get the begin and end of the current word
-		start = SendMsg(SCI_WORDSTARTPOSITION, pos, true);
-		end = SendMsg(SCI_WORDENDPOSITION, pos, true);
+		start = g_Msgr.SendSciMsg(SCI_WORDSTARTPOSITION, pos, true);
+		end = g_Msgr.SendSciMsg(SCI_WORDENDPOSITION, pos, true);
 	}
 
 	// Is there anything to be selected?
@@ -462,8 +462,8 @@ static void SelectQuotedText()
 		return;
 
 	// Set the selection
-	SendMsg(SCI_SETSELECTIONSTART, start);
-	SendMsg(SCI_SETSELECTIONEND, end);
+	g_Msgr.SetSelectionStart(start);
+	g_Msgr.SetSelectionEnd(end);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -471,7 +471,7 @@ static void SelectQuotedText()
 
 extern "C" __declspec(dllexport) void setInfo(NppData notpadPlusData)
 {
-	g_nppData = notpadPlusData;
+	g_Msgr.SetNppData(notpadPlusData);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -489,14 +489,6 @@ extern "C" __declspec(dllexport) FuncItem* getFuncsArray(int *nbF)
 {
 	*nbF = nbFunc;
 	return s_funcItem;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-//
-
-HWND getCurrentHScintilla(int which)
-{
-	return (which == 0) ? g_nppData._scintillaMainHandle : g_nppData._scintillaSecondHandle;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -532,38 +524,24 @@ extern "C" __declspec(dllexport) LRESULT messageProc(UINT uMsg, WPARAM wParam, L
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// Send a simple message to the Notepad++ window 'count' times and return
-// the last result.
-
-LRESULT SendMsg(UINT Msg, WPARAM wParam, LPARAM lParam, int count)
-{
-	int currentEdit;
-	::SendMessage(g_nppData._nppHandle, NPPM_GETCURRENTSCINTILLA, 0, (LPARAM) &currentEdit);
-	LRESULT res = 0;
-	for (int i = 0; i < count; i++)
-		res = ::SendMessage(getCurrentHScintilla(currentEdit), Msg, wParam, lParam);
-	return res;
-}
-
-/////////////////////////////////////////////////////////////////////////////
 // Make the window center, relative the NPP-window
 
-void CenterWindow(HWND hDlg)
+void CenterWindow(HWND hDlg) noexcept
 {
 	RECT rc;
-	GetClientRect(g_nppData._nppHandle, &rc);
+	GetClientRect(g_Msgr.GetNppHandle(), &rc);
 
-	POINT center;
-	int w = rc.right - rc.left;
-	int h = rc.bottom - rc.top;
+	POINT center{};
+	const int w = rc.right - rc.left;
+	const int h = rc.bottom - rc.top;
 	center.x = rc.left + (w / 2);
 	center.y = rc.top + (h / 2);
-	ClientToScreen(g_nppData._nppHandle, &center);
+	ClientToScreen(g_Msgr.GetNppHandle(), &center);
 
 	RECT dlgRect;
 	GetClientRect(hDlg, &dlgRect);
-	int x = center.x - ((dlgRect.right - dlgRect.left) / 2);
-	int y = center.y - ((dlgRect.bottom - dlgRect.top) / 2);
+	const int x = center.x - ((dlgRect.right - dlgRect.left) / 2);
+	const int y = center.y - ((dlgRect.bottom - dlgRect.top) / 2);
 
 	SetWindowPos(hDlg, HWND_TOP, x, y, -1, -1, SWP_NOSIZE | SWP_SHOWWINDOW);
 }

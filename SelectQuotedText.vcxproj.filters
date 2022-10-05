@@ -21,6 +21,9 @@
     <ClCompile Include="SelectQuotedText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NppMessenger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DlgAbout.h">
@@ -30,6 +33,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SelectQuotedText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NppMessenger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

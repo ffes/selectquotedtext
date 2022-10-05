@@ -189,10 +189,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DlgAbout.cpp" />
+    <ClCompile Include="NppMessenger.cpp" />
     <ClCompile Include="SelectQuotedText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DlgAbout.h" />
+    <ClInclude Include="NppMessenger.h" />
     <ClInclude Include="SelectQuotedText.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>

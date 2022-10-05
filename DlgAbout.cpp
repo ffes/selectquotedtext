@@ -87,5 +87,5 @@ static BOOL CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPar
 
 void ShowAboutDlg()
 {
-	DialogBox(g_hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), g_nppData._nppHandle, (DLGPROC) DlgProc);
+	DialogBox(g_hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), g_Msgr.GetNppHandle(), (DLGPROC) DlgProc);
 }

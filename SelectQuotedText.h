@@ -21,15 +21,9 @@
 
 #pragma once
 
-struct NppData;
+#include "NppMessenger.h"
 
-extern LRESULT SendMsg(UINT Msg, WPARAM wParam = 0, LPARAM lParam = 0, int count = 1);
-extern void CenterWindow(HWND hDlg);
+extern void CenterWindow(HWND hDlg) noexcept;
 
 extern HINSTANCE g_hInst;
-extern NppData g_nppData;
-
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#define snwprintf swprintf
-#endif
+extern NppMessenger g_Msgr;
