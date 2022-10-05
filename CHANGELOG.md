@@ -1,15 +1,12 @@
-CHANGELOG
-=========
-
-Next version
-------------
-
-* Remove changelog from AboutDlg and create a separate `CHANGELOG.md`.
-
-* Update project files for VS2019
+# CHANGELOG
 
 
-v1.0.0 (2016-12-05)
--------------------
+## v1.1.0 (2022-MM-DD)
 
-* Initial release
+- Remove changelog from AboutDlg and create a separate `CHANGELOG.md`.
+- Update project files for VS2022
+
+
+## v1.0.0 (2016-12-05)
+
+- Initial release
